@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+data/orders.csv
+# Query caches stay local; the product embeddings are committed so a fresh
+# deploy doesn't spend its embedding quota re-embedding the catalog.
+data/cache/*
+!data/cache/product-embeddings-*.npy
+.DS_Store

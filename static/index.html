@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stock Clerk — Hardware &amp; Home</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Stock Clerk home">
+      <span class="brand-mark">🧰</span>
+      <span>Stock Clerk<small>Hardware &amp; Home</small></span>
+    </a>
+    <div class="topbar-actions">
+      <label class="shopper-picker">
+        <span>Shopping as</span>
+        <select id="shopper-select" aria-label="Shopping as">
+          <option value="">Guest</option>
+        </select>
+      </label>
+      <button id="cart-button" class="btn btn-ghost" type="button" aria-haspopup="dialog">
+        🛒 Cart <span id="cart-count" class="count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Don't know what it's called? Just describe it.</h1>
+      <p>Tell us the shape, the color, or what it's for. Our AI clerk will find it.</p>
+      <form id="search-form" class="search" role="search">
+        <input id="search-input" type="search" autocomplete="off" maxlength="300"
+               placeholder="e.g. small L-shaped metal tool for furniture bolts"
+               aria-label="Describe the product you are looking for">
+        <button class="btn btn-primary" type="submit">Find it</button>
+      </form>
+      <div id="examples" class="chips" aria-label="Example searches"></div>
+    </section>
+
+    <section id="recs-section" class="panel" hidden>
+      <div class="section-head">
+        <h2 id="recs-title">Recommended for you</h2>
+        <p id="recs-subtitle" class="muted"></p>
+      </div>
+      <div id="recs" class="rec-row"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <h2 id="results-title">All products</h2>
+        <span id="results-mode" class="badge" hidden></span>
+        <button id="clear-search" class="btn btn-link" type="button" hidden>Clear search</button>
+      </div>
+      <div id="categories" class="chips"></div>
+      <div id="grid" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Demo store with sample products and synthetic purchase history. Search and chat powered by the Gemini API.
+  </footer>
+
+  <!-- Product details -->
+  <dialog id="product-dialog" class="dialog" aria-labelledby="product-name">
+    <button class="dialog-close" type="button" data-close aria-label="Close">×</button>
+    <div id="product-detail"></div>
+  </dialog>
+
+  <!-- Cart -->
+  <dialog id="cart-dialog" class="dialog drawer" aria-labelledby="cart-heading">
+    <button class="dialog-close" type="button" data-close aria-label="Close">×</button>
+    <h2 id="cart-heading">Your cart</h2>
+    <div id="cart-items"></div>
+    <div id="cart-recs"></div>
+  </dialog>
+
+  <!-- Order confirmation -->
+  <dialog id="order-dialog" class="dialog" aria-labelledby="order-heading">
+    <button class="dialog-close" type="button" data-close aria-label="Close">×</button>
+    <div id="order-detail"></div>
+  </dialog>
+
+  <div id="notice" class="notice" role="status" hidden></div>
+
+  <!-- Support chat -->
+  <button id="chat-toggle" class="chat-toggle" type="button" aria-expanded="false" aria-controls="chat-panel">
+    💬 <span>Ask Clerk</span>
+  </button>
+  <section id="chat-panel" class="chat" hidden aria-label="Customer support chat">
+    <header>
+      <div><strong>Clerk</strong><small>Returns, refunds &amp; product help</small></div>
+      <button id="chat-close" type="button" aria-label="Close chat">×</button>
+    </header>
+    <div id="chat-log" class="chat-log" aria-live="polite"></div>
+    <div id="chat-suggestions" class="chips chat-suggestions"></div>
+    <form id="chat-form" class="chat-form">
+      <input id="chat-input" type="text" autocomplete="off" maxlength="1000"
+             placeholder="Ask about returns, refunds, products…" aria-label="Message">
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
